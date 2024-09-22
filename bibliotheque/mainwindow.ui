@@ -2285,7 +2285,7 @@ border-radius : 3px;</string>
                             </property>
                             <layout class="QHBoxLayout" name="horizontalLayout_34">
                              <item>
-                              <widget class="QPushButton" name="pushButton_12">
+                              <widget class="QPushButton" name="btnGetImage">
                                <property name="minimumSize">
                                 <size>
                                  <width>0</width>
@@ -2299,12 +2299,30 @@ border-radius : 3px;</string>
                                 </size>
                                </property>
                                <property name="styleSheet">
-                                <string notr="true">
-background-color: qlineargradient(spread:pad, x1:0.953191, y1:0.494, x2:0.974, y2:0, stop:0 rgba(83, 236, 24, 255), stop:1 rgba(255, 255, 255, 255));
-color: rgb(0, 0, 0);</string>
+                                <string notr="true">#btnGetImage{
+	background-color: qlineargradient(spread:pad, x1:0.953191, y1:0.494, x2:0.974, y2:0, stop:0 rgba(83, 236, 24, 255), stop:1 rgba(255, 255, 255, 255));
+	color: rgb(0, 0, 0);
+}
+
+#btnGetImage:hover{
+	background-color:qlineargradient(spread:pad, x1:0.953191, y1:0.494, x2:0.974, y2:0, stop:0 rgba(83, 236, 24, 100), stop:1 rgba(255, 255, 255, 100));
+}
+
+#btnGetImage:pressed{
+	background-color: rgba(249, 240, 107,30);
+
+}
+
+
+
+</string>
                                </property>
                                <property name="text">
-                                <string>Parcourir image</string>
+                                <string>Choisir image</string>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="icons.qrc">
+                                 <normaloff>:/icons/image.svg</normaloff>:/icons/image.svg</iconset>
                                </property>
                               </widget>
                              </item>
@@ -2399,6 +2417,14 @@ color: rgb(0, 0, 0);</string>
                             <property name="styleSheet">
                              <string notr="true">QLineEdit,QDateEdit{
 	background-color: rgb(255, 255, 255);
+	color: rgb(0, 0, 0);
+}
+
+QLineEdit:focus,QDateEdit:focus{
+	border: 1px solid rgb(14, 225, 253);
+	box-shadow: 0 0 10px rgb(14, 225, 253), 0 0 10px rgb(255, 225, 255),0 0 10px rgb(255, 225, 253), 0 0 10px rgb(255, 225, 253);
+	background-color: rgba(14, 225, 253,10);
+	color: rgb(255, 255, 255);
 }
 
 #formulaire{
@@ -2437,6 +2463,9 @@ color: rgb(0, 0, 0);</string>
                                     <height>35</height>
                                    </size>
                                   </property>
+                                  <property name="styleSheet">
+                                   <string notr="true"/>
+                                  </property>
                                   <property name="placeholderText">
                                    <string/>
                                   </property>
@@ -2463,6 +2492,9 @@ color: rgb(0, 0, 0);</string>
                                     <height>35</height>
                                    </size>
                                   </property>
+                                  <property name="styleSheet">
+                                   <string notr="true"/>
+                                  </property>
                                  </widget>
                                 </item>
                                 <item>
@@ -2486,6 +2518,9 @@ color: rgb(0, 0, 0);</string>
                                     <height>35</height>
                                    </size>
                                   </property>
+                                  <property name="styleSheet">
+                                   <string notr="true"/>
+                                  </property>
                                  </widget>
                                 </item>
                                 <item>
@@ -2508,6 +2543,9 @@ color: rgb(0, 0, 0);</string>
                                     <width>0</width>
                                     <height>35</height>
                                    </size>
+                                  </property>
+                                  <property name="styleSheet">
+                                   <string notr="true"/>
                                   </property>
                                  </widget>
                                 </item>
@@ -2544,6 +2582,9 @@ color: rgb(0, 0, 0);</string>
                                     <height>35</height>
                                    </size>
                                   </property>
+                                  <property name="styleSheet">
+                                   <string notr="true"/>
+                                  </property>
                                  </widget>
                                 </item>
                                 <item>
@@ -2566,6 +2607,9 @@ color: rgb(0, 0, 0);</string>
                                     <width>0</width>
                                     <height>35</height>
                                    </size>
+                                  </property>
+                                  <property name="styleSheet">
+                                   <string notr="true">color: rgb(0, 0, 0);</string>
                                   </property>
                                   <property name="calendarPopup">
                                    <bool>false</bool>
@@ -2603,6 +2647,9 @@ color: rgb(0, 0, 0);</string>
                                     <height>35</height>
                                    </size>
                                   </property>
+                                  <property name="styleSheet">
+                                   <string notr="true"/>
+                                  </property>
                                  </widget>
                                 </item>
                                 <item>
@@ -2625,6 +2672,9 @@ color: rgb(0, 0, 0);</string>
                                     <width>0</width>
                                     <height>35</height>
                                    </size>
+                                  </property>
+                                  <property name="styleSheet">
+                                   <string notr="true"/>
                                   </property>
                                  </widget>
                                 </item>

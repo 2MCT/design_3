@@ -17,54 +17,7 @@
 #include <QtCharts>
 #include <QLayout>
 
-/*========================================*/
-
-QString new_members(QSqlQuery query){
-    query.exec("SELECT COUNT(*) FROM ADHERENT WHERE DATEADHESION > DATE_SUB(CURDATE(), INTERVAL 4 WEEK)") ;
-    QString result ;
-    while(query.next())
-        result = query.value(0).toString() ;
-    return result ;
-}
-QString ex_members(QSqlQuery query){
-    query.exec("SELECT COUNT(*) FROM ADHERENT WHERE DATE_SUB(CURDATE(), INTERVAL 1 YEAR)>DATEADHESION")  ;
-    QString result ;
-    while(query.next())
-        result = query.value(0).toString() ;
-    return result ;
-}
-QString particuliers(QSqlQuery query){
-    query.exec("SELECT count(*) FROM ADHERENT WHERE NUMADHERENT REGEXP '.*P.*' ;")  ;
-    QString result ;
-    while(query.next())
-        result = query.value(0).toString() ;
-    return result ;
-}
-QString students(QSqlQuery query){
-    query.exec("SELECT count(*) FROM ADHERENT WHERE NUMADHERENT REGEXP '.*E.*' ;")  ;
-    QString result ;
-    while(query.next())
-        result = query.value(0).toString() ;
-    return result ;
-}
-QString total_members(QSqlQuery query){
-    query.exec("SELECT count(*) FROM ADHERENT WHERE 1;")  ;
-    QString result ;
-    while(query.next())
-        result = query.value(0).toString() ;
-    return result ;
-}
-int emprunteurs(QSqlQuery query, int x) {
-    query.prepare("SELECT COUNT(*) FROM EMPRUNTER WHERE DATE_PRET = DATE_SUB(CURDATE(), INTERVAL :X DAY) ;") ;
-    query.bindValue(":X",x) ;
-    query.exec() ;
-    int result ;
-    while(query.next())
-        result = query.value(0).toInt() ;
-    return result ;
-}
-
-/*=========================================*/
+/*=================================================================*/
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -114,6 +67,57 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+
+/*========================================*/
+
+QString new_members(QSqlQuery query){
+    query.exec("SELECT COUNT(*) FROM ADHERENT WHERE DATEADHESION > DATE_SUB(CURDATE(), INTERVAL 4 WEEK)") ;
+    QString result ;
+    while(query.next())
+        result = query.value(0).toString() ;
+    return result ;
+}
+QString ex_members(QSqlQuery query){
+    query.exec("SELECT COUNT(*) FROM ADHERENT WHERE DATE_SUB(CURDATE(), INTERVAL 1 YEAR)>DATEADHESION")  ;
+    QString result ;
+    while(query.next())
+        result = query.value(0).toString() ;
+    return result ;
+}
+QString particuliers(QSqlQuery query){
+    query.exec("SELECT count(*) FROM ADHERENT WHERE NUMADHERENT REGEXP '.*P.*' ;")  ;
+    QString result ;
+    while(query.next())
+        result = query.value(0).toString() ;
+    return result ;
+}
+QString students(QSqlQuery query){
+    query.exec("SELECT count(*) FROM ADHERENT WHERE NUMADHERENT REGEXP '.*E.*' ;")  ;
+    QString result ;
+    while(query.next())
+        result = query.value(0).toString() ;
+    return result ;
+}
+QString total_members(QSqlQuery query){
+    query.exec("SELECT count(*) FROM ADHERENT WHERE 1;")  ;
+    QString result ;
+    while(query.next())
+        result = query.value(0).toString() ;
+    return result ;
+}
+int emprunteurs(QSqlQuery query, int x) {
+    query.prepare("SELECT COUNT(*) FROM EMPRUNTER WHERE DATE_PRET = DATE_SUB(CURDATE(), INTERVAL :X DAY) ;") ;
+    query.bindValue(":X",x) ;
+    query.exec() ;
+    int result ;
+    while(query.next())
+        result = query.value(0).toInt() ;
+    return result ;
+}
+
+/*=========================================*/
+
 
 void MainWindow::on_btnAccueil_clicked()
 {
@@ -556,8 +560,8 @@ void MainWindow::on_btnAddMember_clicked()
     ui->resultMembre->setMaximumWidth(width-500);
     */
 
-    QString picture = ":/icons/user-plus.svg";
-    insertImage(ui->portProfil, picture);
+//    QString picture = ":/icons/user-plus.svg";
+//    insertImage(ui->portProfil, picture);
     ui->formWidget->show();
     ui->resultMembre->hide();
 }
@@ -579,7 +583,16 @@ void MainWindow::on_btnBack_clicked()
 
 void MainWindow::on_btnClose_clicked()
 {
-    ui->formWidget->hide();
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this,"Confirmation","Vouler-vous enregistrer?",QMessageBox::Save | QMessageBox::Close);
+    if(reply == QMessageBox::Close){
+        ui->formWidget->hide();
+    }
+
+    else if(reply == QMessageBox::Save){
+        ui->formWidget->hide();
+        /*====enrgistrer les inputs==============*/
+    }
 }
 
 void MainWindow::insertImage(QWidget *parent, QString path){
@@ -599,7 +612,7 @@ void MainWindow::insertImage(QWidget *parent, QString path){
 QString MainWindow::getPathImage(){
     QString fileName = QFileDialog::getOpenFileName(nullptr,"Choisir une image","","Images(*.png *.jpg *.jpeg *.bmp *.gif)");
     if(fileName.isEmpty()){
-        QMessageBox::warning(this, "Warning", "Impossible de choisir l'image");
+        QMessageBox::warning(this, "Warning", "Impossible d'ajouter l'image ou peut-etre que vous n'en choisissez rien!");
         return "";
     }
     QMessageBox::information(this,"Success", "Image est ajoutee");
@@ -608,10 +621,29 @@ QString MainWindow::getPathImage(){
 
 
 
-
-void MainWindow::on_pushButton_12_clicked()
+void MainWindow::on_btnGetImage_clicked()
 {
     QString source = getPathImage();
     insertImage(ui->portProfil, source);
 }
 
+
+void MainWindow::on_btnAnnuler_clicked()
+{
+   QMessageBox::StandardButton reply;
+   reply = QMessageBox::question(this,"Confirmation","Vouler vous annuler l'enregistrement?",QMessageBox::Yes | QMessageBox::No);
+   if(reply == QMessageBox::Yes){
+       ui->formWidget->hide();
+   }
+}
+
+
+void MainWindow::on_btnEnregistrer_clicked()
+{
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this,"Confirmation","Vouler-vous enregistrer?",QMessageBox::Save | QMessageBox::No);
+    if(reply == QMessageBox::Save){
+        ui->formWidget->hide();
+        //faire ici l'enrgistrement( requete SQL)
+    }
+}

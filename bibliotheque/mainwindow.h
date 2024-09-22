@@ -61,7 +61,11 @@ private slots:
 
     void on_btnClose_clicked();
 
-    void on_pushButton_12_clicked();
+    void on_btnGetImage_clicked();
+
+    void on_btnAnnuler_clicked();
+
+    void on_btnEnregistrer_clicked();
 
 private:
     Ui::MainWindow *ui;
